@@ -63,6 +63,10 @@ function App() {
   }
 
   const onCancel = () => {
+    if(price > 0){
+      openNotificationWithIcon("info", "You cancelled the process", `Please collect the change ${price} of RS`)
+    }
+
     setIsModalOpen(false)
     setName("")
     setPrice(0)
@@ -81,6 +85,7 @@ function App() {
           <input type="number" name="Price" value={price} onChange={onChange} />
           <input type="button" value="Submit" onClick={async (e) => {
             if(e.preventDefault) e.preventDefault()
+            setIsModalOpen(false)
             try {
              const result = await axios.put("http://localhost:3001/buy", {
               name,
@@ -112,6 +117,7 @@ function App() {
           <input type="number" name="Price" value={price} onChange={onChange} />
           <button onClick={async (e) => {
             if(e.preventDefault) e.preventDefault()
+            setIsModalOpen(false)
             try {
               const result = await axios.post("http://localhost:3001", {
                 name,
@@ -140,6 +146,7 @@ function App() {
           <input type="text" name="Name" value={name} onChange={onChange} />
           <button onClick={async (e) => {
             if(e.preventDefault) e.preventDefault()
+            setIsModalOpen(false)
             try {
               const result = await axios.delete(`http://localhost:3001/${name}`)
 
